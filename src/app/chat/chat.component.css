@@ -1,0 +1,177 @@
+.container2 {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* background-color: blue; */
+    align-items: center;
+    justify-content: center;
+}
+
+
+.chat {
+    position: relative;
+    width: 35rem;
+    height: 85vh;
+    /* border: solid 2px blue; */
+}
+
+
+.header {
+    position: relative;
+    width: 100%;
+    height: 2.5rem;
+    top: 0;
+    border: solid black 1px;
+    display: flex;
+    align-items: center;
+}
+
+.username{
+    position: relative;
+    left: 4rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.imgUser {
+    background-color: bisque;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    left: .5rem;
+    position: absolute;
+}
+
+.status {
+    position: absolute;
+    right: 4rem;
+    width: .8rem;
+    height: .8rem;
+    background-color: rgb(241, 51, 51);
+    border-radius: 50%;
+}
+
+.options {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    right: 0;
+    border: solid 1px black;
+}
+
+.messages {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 8rem);
+    border: solid black 1px;
+    padding: 1rem 0;
+    overflow-y: auto;
+    /* Para permitir desplazamiento si hay muchos mensajes */
+}
+
+.containerMess {
+    display: flex;
+    width: 100%;
+    /* El contenedor ocupa el 100% del ancho */
+    justify-content: flex-start;
+    /* Los elementos dentro de containerMess se alinearán por defecto a la izquierda */
+    margin-top: 0.5rem;
+}
+
+.message-sent,
+.message-received {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    /* border-radius: 1rem; */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    min-height: 2rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    /* Para asegurar que el padding no afecte el ancho */
+    /* max-width: 70%; */
+    /* min-width: 30%; */
+    width: 100%;
+    position: relative;
+}
+
+.message-sent {
+    justify-content: flex-end;
+    /* Alinea el mensaje a la derecha dentro de containerMess */
+    padding-right: 1.5rem;
+    /* Espacio entre el borde y el mensaje */
+    /* margin-left: 2rem; */
+    /* Deja 2rem de espacio al borde izquierdo */
+}
+
+.message-received {
+    justify-content: flex-start;
+    /* Alinea el mensaje a la izquierda dentro de containerMess */
+    padding-left: 1.5rem;
+    /* Espacio entre el borde y el mensaje */
+    /* margin-right: 2rem; */
+    /* Deja 2rem de espacio al borde derecho */
+}
+
+.message-image {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    position: absolute;
+    display: none;
+    /* Espacio entre la imagen y el texto */
+}
+
+.containerMess div p {
+    border-radius: 1rem;
+    min-width: 30%;
+    max-width: 70%;
+    margin: 0;
+    border: 1px solid rgb(90, 80, 201);
+    padding: .5rem;
+    /* Elimina los márgenes por defecto del <p> */
+}
+
+.writeZone {
+    position: absolute;
+    width: 100%;
+    height: 5rem;
+    bottom: 0;
+    border: solid black 1px;
+    display: flex;
+    align-items: center;
+}
+
+.pad {
+    position: absolute;
+    width: calc(100% - 3.5rem);
+    height: 4rem;
+    border-radius: .5rem;
+    background-color: rgb(211, 211, 211);
+    left: .5rem;
+}
+
+.write{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: .5rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize:none;
+}
+
+.send {
+    position: absolute;
+    right: .5rem;
+    background-color: rgb(120, 120, 120);
+    color: white;
+    width: 2rem;
+    height: 3rem;
+    border-radius: .5rem;
+}

@@ -1,0 +1,47 @@
+<div class="container2">
+    <!-- <p>chat works!</p> -->
+    <div class="menu"></div>
+    <div class="chat">
+        <div class="header">
+            <div class="imgUser">
+                <img [src]="user2.userImg" alt="Avatar" />
+            </div>
+            <p class="username">{{ user2.username }}</p>
+            <span class="status"></span>
+            <div class="options"></div>
+        </div>
+
+        <div class="messages">
+            <!-- <div *ngFor="let message of chat.messages"> -->
+            <div *ngFor="let message of (chat$ | async)?.messages">
+                <div *ngIf="message.sender === user1.id; else otherUserMessage">
+                    <div class="containerMess">
+                        <!-- Contenedor de mensaje enviado -->
+                        <div class="message-sent">
+                            <img class="message-image" src="path-to-user1-image" alt="user1" />
+                            <p>{{ message.text }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #otherUserMessage>
+                    <div class="containerMess">
+                        <!-- Contenedor de mensaje recibido -->
+                        <div class="message-received" >
+                            <img class="message-image" src="path-to-user2-image" alt="user2" />
+                            <p>{{ message.text }}</p>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+
+        <div class="writeZone">
+            <div class="pad">
+                <!-- <input type="text" [value]="currentMess" placeholder="Message"> -->
+                <textarea class="write" [(ngModel)]="currentMess" placeholder="Messsage"></textarea>
+            </div>
+            <div class="send" (click)="sendMess()">></div>
+        </div>
+    </div>
+</div>
