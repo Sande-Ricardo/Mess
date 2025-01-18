@@ -1,14 +1,14 @@
 export class User{
-    id!: number;
+    id!: string;
     username!:string;
     email!:string;
     password!:string;
     userImg!:string;
     lang!:string[];
-    idChat!:number;
+    idChat!:string;
     status!:boolean;
 
-    constructor(username:string, email:string, password:string, userImg?:string, lang?:string[], idChat?:number, status?:boolean, id?:number){
+    constructor(username:string, email:string, password:string, userImg?:string, lang?:string[], idChat?:string, status?:boolean, id?:string){
         this.username = username;
         this.email = email;
         this.password = password;

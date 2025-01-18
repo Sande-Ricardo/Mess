@@ -1,10 +1,10 @@
 export class Chat{
-    id!:number;
-    idUsers!:number[];
+    id!:string;
+    idUsers!:string[];
     messages!:Message[];
 
 
-    constructor(idUsers:number[], messages:Message[], id?:number){
+    constructor(idUsers:string[], messages:Message[], id?:string){
         this.idUsers = idUsers;
         this.messages = messages;
         if(id){this.id=id};
@@ -12,12 +12,12 @@ export class Chat{
 }
 
 export class Message{
-    id!:number;
-    sender!:number;
+    id!:string;
+    sender!:string;
     text!:string;
     timestamp!:Date;
 
-    constructor(sender:number, text:string, timestamp:Date, id?:number){
+    constructor(sender:string, text:string, timestamp:Date, id?:string){
         this.sender = sender;
         this.text = text;
         this.timestamp = timestamp;

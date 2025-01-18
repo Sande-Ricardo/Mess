@@ -32,7 +32,7 @@ export class ChatComponent {
       '1234',
       'url',
       ['ES', 'EN'],
-      1,
+      "1",
       true,
       1
     ),
@@ -42,7 +42,7 @@ export class ChatComponent {
       '1234',
       'url',
       ['ES'],
-      1,
+      "1",
       true,
       2
     ),
