@@ -16,7 +16,31 @@ import { User } from '../model/User';
   providedIn: 'root',
 })
 export class FirebaseService {
-  constructor(private db: AngularFireDatabase) {}
+  constructor(
+    private db: AngularFireDatabase
+  ) {
+  
+    // if(!this.user1$){
+    //   this.user1$ = this.getUserByEmail(localStorage.getItem('email') as string).pipe(
+    //     filter((user): user is User => user !== undefined)
+    //   );
+    //   let userId:string;
+    //   this.user1$.subscribe((user) => {userId = user.id as string});
+    //   setTimeout(() => {
+    //     console.log(userId);
+    //     this.generateChat(userId);
+    //   }, 3000);
+    //   setTimeout(() => {
+    //     this.chat$.subscribe((chat) => {console.log(chat)});
+        
+    //   }, 5000);
+    // };
+    
+
+    
+    
+    
+  }
 
   // ------------------------------  Observables --------------------------------
   chat$!: Observable<Chat>;
@@ -30,7 +54,7 @@ export class FirebaseService {
   }
 
   // READ
-  getChatById(id: number) {
+  getChatById(id: string) {
     // return this.db.object(`chats/${id}`) as unknown as Chat;
     console.log('getChatById()');
     this.chat$ = this.db
@@ -54,6 +78,9 @@ export class FirebaseService {
   createUser(user: User) {
     return this.db.list('users').push(user);
   }
+  async registerUser(user: User) {
+    await this.db.object(`users/${user.id}`).set(user);
+  }
 
   // READ
   getUserById(id: string) {
@@ -62,11 +89,14 @@ export class FirebaseService {
     return this.db.object<User>(`users/${id}`).valueChanges();
   }
 
-  getUserByEmail(email: string) {
+  getUserByEmail(email: string): Observable<User | undefined> {
     console.log('getUserByEmail()');
-    this.user1$ = this.db
-      .object(`users/${email}`)
-      .valueChanges() as unknown as Observable<User>;
+    return this.db
+      .list(`users`, (ref) => ref.orderByChild('email').equalTo(email).limitToFirst(1))
+      .valueChanges()
+      .pipe(
+        map((users) => (users.length > 0 ? users[0] : undefined))
+      ) as Observable<User | undefined>;
   }
 
   // UPDATE
@@ -120,6 +150,8 @@ export class FirebaseService {
   //   return chat;
   // }
 
+  // probar todo estos
+
   getAvailableChat(userLanguages: string[]): Observable<Chat> {
     return this.db
       .list<Chat>('chats', (ref) => ref.orderByChild('idUsers').limitToFirst(1))
@@ -151,11 +183,14 @@ export class FirebaseService {
   }
 
   generateChat(userId: string) {
+    // ¡¡revisar porque un frragmento o todo se utera dos veces!! 
     const newChat: Chat = {
       idUsers: [userId],
       messages: [],
-      id: '0',
+      id: 'none',
     };
+    console.log("userId: ",userId);
+    
     const idChat = this.db.list('chats').push(newChat).key;
     let idUser;
 
@@ -164,13 +199,16 @@ export class FirebaseService {
       user = data;
       idUser = user.id as string;
       if (idChat) user.idChat = idChat;
-      console.log('chat desgined');
+      console.log('chat designed');
 
       if (idUser) this.updateUser(idUser, user);
+
+      // esto puede no funcionar porque la creación del chat no es inmediata
+      this.getChatById(idChat as string);
     });
   }
 
-  joinOrCreateChate(){
+  joinOrCreateChat(){
     let lang:string[];
     this.user1$.subscribe(user =>{
       lang = user.lang
@@ -180,7 +218,7 @@ export class FirebaseService {
 
       this.chat$.subscribe(
         (chat) => {
-          chat.idUsers[1] = user.id;
+          chat.idUsers[1] = user.id as string;
           user.idChat = chat.id;
           this.updateChat(chat)
         }

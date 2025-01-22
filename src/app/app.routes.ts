@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
+import { AuthGuardService } from './shared/auth-guard.service';
 
 export const routes: Routes = [
     {
         path:'*',
         pathMatch:"full",
-        redirectTo:"home"
+        redirectTo:"login"
     },
       // Lazy loading (loadChildren)
     {
@@ -15,6 +16,7 @@ export const routes: Routes = [
     {
         path:'chat',
         loadChildren: () =>
-            import('./chat/chat.module').then((m)=> m.ChatModule)
+            import('./chat/chat.module').then((m)=> m.ChatModule),
+        canActivate: [AuthGuardService]
     }
 ];

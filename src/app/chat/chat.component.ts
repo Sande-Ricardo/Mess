@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { LoginService } from '../login/login.service';
 import { Chat, Message } from '../model/Chat';
 import { User } from '../model/User';
 import { FirebaseService } from '../shared/firebase.service';
@@ -14,13 +15,23 @@ import { FirebaseService } from '../shared/firebase.service';
 export class ChatComponent {
 
   chat$!:Observable<Chat>;
-  user!:Observable<User>;
+  user$!:Observable<User>;
 
-  constructor(private firebaseSv:FirebaseService) {
+  constructor(
+    private firebaseSv:FirebaseService,
+    private loginSv:LoginService
+  ) {
   
-    this.firebaseSv.getChatById(1);
+    // this.firebaseSv.getChatById("-OGl3qzD6XUXt7GK4ze2");
     
-    this.loadChat();
+    // this.loadChat();
+    // this.loginSv.logoutUser();
+
+
+    // if(!this.firebaseSv.user1$){
+    //   this.firebaseSv.getUserByEmail(localStorage.getItem('email') as string);
+    // };
+
   }
 
 
@@ -29,36 +40,33 @@ export class ChatComponent {
     user1: new User(
       'John Doe',
       'john.doe@example.com',
-      '1234',
       'url',
       ['ES', 'EN'],
       "1",
       true,
-      1
+      "1"
     ),
     user2: new User(
       'Ben',
       'ben@example.com',
-      '1234',
       'url',
       ['ES'],
       "1",
       true,
-      2
+      "2"
     ),
     chat: new Chat(
-      [1, 2],
+      ["1", "2"],
       [
-        new Message(1, 'Hi!', new Date(), 1),
+        new Message("1", 'Hi!', new Date()),
         new Message(
-          2,
+          "2",
           'HOlaHOlaHOlaHOlaHOla HOlaHOlaHOlaHOlaHOla HOlaHOlaHOlaHOlaHOla HOlaHOlaHOlaHOlaHOla HOlaHOlaHOlaHOlaHOla HOlaHOlaHOlaHOlaHOla HOlaHOlaHOlaHOlaHOla HOlaHOlaHOlaHOlaHOla HOlaHOlaHOlaHOlaHOla HOlaHOlaHOlaHOlaHOla  ',
-          new Date(),
-          2
+          new Date()
         ),
-        new Message(2, 'Cómo estás?', new Date(), 3),
+        new Message("2", 'Cómo estás?', new Date()),
       ],
-      1
+      "1"
     ),
   };
 
@@ -67,8 +75,8 @@ export class ChatComponent {
   sendMess(){
     let mess: Message ={
       text: this.currentMess,
-      sender: this.user1.id,
-      id:this.chat.messages.length,
+      sender: this.user1.id as string,
+      // id:this.chat.messages.length,
       timestamp: new Date()
     }
     this.chat.messages.push(mess);

@@ -14,7 +14,7 @@
         <div class="messages">
             <!-- <div *ngFor="let message of chat.messages"> -->
             <div *ngFor="let message of (chat$ | async)?.messages">
-                <div *ngIf="message.sender === user1.id; else otherUserMessage">
+                <div *ngIf="message.sender == user1.id; else otherUserMessage">
                     <div class="containerMess">
                         <!-- Contenedor de mensaje enviado -->
                         <div class="message-sent">

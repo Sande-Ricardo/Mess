@@ -12,15 +12,15 @@ export class Chat{
 }
 
 export class Message{
-    id!:string;
+    // id!:string;
     sender!:string;
     text!:string;
     timestamp!:Date;
 
-    constructor(sender:string, text:string, timestamp:Date, id?:string){
+    constructor(sender:string, text:string, timestamp:Date){
         this.sender = sender;
         this.text = text;
         this.timestamp = timestamp;
-        if(id){this.id=id};
+        // if(id){this.id=id};
     }
 }
