@@ -1,13 +1,18 @@
 import { Routes } from '@angular/router';
+import { CommonComponent } from './home/common/common.component';
 import { AuthGuardService } from './shared/auth-guard.service';
 
 export const routes: Routes = [
+    // Lazy loading (loadChildren)
     {
         path:'*',
         pathMatch:"full",
         redirectTo:"login"
     },
-      // Lazy loading (loadChildren)
+    {
+        path: '', component: CommonComponent
+        // , canActivate: [AuthGuardService]
+    },
     {
         path:'login',
         loadChildren: () =>

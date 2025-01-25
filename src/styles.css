@@ -3,3 +3,23 @@
     margin: 0;
     padding: 0;
 }
+
+:root{
+    --prm:#31e298;
+    --sec:#2E8A6A;
+    --thr:#1d724f;
+    
+    --prm-back:rgba(255, 255, 255, 0.15);
+    --sec-back:rgba(0, 0, 0, 0.4);
+    /* --thr-back:rgba(255, 255, 255, 0.318); */
+
+    
+    --prm-text: #FFFFFF;
+    --sec-text: #000000;
+
+    --detail:rgba(255, 255, 255, 0.3);
+
+    --shadow: rgba(0, 0, 0, 0.2);
+
+    --prm-font: 'Arial', sans-serif;
+}

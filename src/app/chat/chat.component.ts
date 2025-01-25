@@ -31,29 +31,36 @@ export class ChatComponent {
     // if(!this.firebaseSv.user1$){
     //   this.firebaseSv.getUserByEmail(localStorage.getItem('email') as string);
     // };
-
+    setTimeout(() => {
+      this.loadAll();
+    },2000)
   }
 
+  menuOpen: boolean = false;
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
 
 // ----------------------------------  Mock  -----------------------------------
   mock = {
     user1: new User(
-      'John Doe',
-      'john.doe@example.com',
+      '',
+      '',
       'url',
       ['ES', 'EN'],
-      "1",
+      "",
       true,
-      "1"
+      ""
     ),
     user2: new User(
-      'Ben',
-      'ben@example.com',
+      '',
+      '',
       'url',
       ['ES'],
-      "1",
+      "",
       true,
-      "2"
+      ""
     ),
     chat: new Chat(
       ["1", "2"],
@@ -79,22 +86,74 @@ export class ChatComponent {
       // id:this.chat.messages.length,
       timestamp: new Date()
     }
-    this.chat.messages.push(mess);
+    if(this.chat.messages){
+      this.chat.messages.push(mess);
+    } else {
+      this.chat = new Chat(
+        this.chat.idUsers,
+        [mess],
+        this.chat.id as string
+      )
+    }
     this.firebaseSv.updateChat(this.chat);
+    this.currentMess = "";
+
   }
 
   loadChat(){
     this.chat$ = this.firebaseSv.chat$;
-    this.chat$.subscribe(data=>{
-      this.chat = data;
-      console.log(data);
-      
+    this.firebaseSv.chat$.subscribe(chat=>{
+      this.chat = chat;
+      console.log("chat: ",chat);
+    });
+  }
+  loadUser(){
+    this.user$ = this.firebaseSv.user1$;
+    this.firebaseSv.user1$.subscribe(user=>{
+      this.user1 = user;
+      console.log("user: ",user);
     })
   }
 
+  loadAll(){
+    let key1:boolean = false;
+    let key2:boolean = false;
+    let user2Id:string;
 
+    this.loadUser()
+    this.loadChat()
+
+    setTimeout(() => {
+      if(this.chat$) key1 = true;
+      if(this.user$) key2 = true;
+      if(key1 && key2){
+        if(this.chat.idUsers[0] == this.user1.id){
+          user2Id = this.chat.idUsers[1];
+        } else {
+          user2Id = this.chat.idUsers[0];
+        }
+        this.firebaseSv.getUserById(user2Id).subscribe(user2=>{
+          if(user2)this.user2 = user2
+          this.user2Status = "true";
+        })
+      } else{
+        console.log("1 o 2 keys no son verdaderas");
+        
+      }
+    },2000)
+  }
+
+  logout(){
+    this.loginSv.logoutUser();
+    setTimeout(
+      () => {
+        location.reload()
+      }, 1500
+    )
+  }
 
   chat:Chat = this.mock.chat;
   user1:User = this.mock.user1;
   user2:User = this.mock.user2;
+  user2Status:string = "false";
 }
