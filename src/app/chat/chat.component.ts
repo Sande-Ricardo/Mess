@@ -14,11 +14,11 @@ import { FirebaseService } from '../shared/firebase.service';
 })
 export class ChatComponent {
 
-  chat$!:Observable<Chat>;
+  chat$!:Observable<Chat> | null;
   user$!:Observable<User>;
 
   constructor(
-    private firebaseSv:FirebaseService,
+    public firebaseSv:FirebaseService,
     private loginSv:LoginService
   ) {
   
@@ -101,17 +101,24 @@ export class ChatComponent {
   }
 
   loadChat(){
-    this.chat$ = this.firebaseSv.chat$;
-    this.firebaseSv.chat$.subscribe(chat=>{
-      this.chat = chat;
-      console.log("chat: ",chat);
-    });
+    if(this.firebaseSv.chat$){
+      this.chat$ = this.firebaseSv.chat$;
+      this.firebaseSv.chat$.subscribe(chat=>{
+        this.chat = chat;
+        // console.log("chat: ",chat);
+      });
+    } else {
+      console.log("chat$ is null");
+      
+    }
+
+    
   }
   loadUser(){
     this.user$ = this.firebaseSv.user1$;
     this.firebaseSv.user1$.subscribe(user=>{
       this.user1 = user;
-      console.log("user: ",user);
+      // console.log("user: ",user);
     })
   }
 
@@ -124,10 +131,17 @@ export class ChatComponent {
     this.loadChat()
 
     setTimeout(() => {
-      if(this.chat$) key1 = true;
+      if(this.chat$) {
+        key1 = true;
+        this.chatStatus = "waiting"
+      } else {
+        this.chatStatus = "no"
+      }
       if(this.user$) key2 = true;
-      if(key1 && key2){
+      
+      if(key1 && key2 && this.chat){
         if(this.chat.idUsers[0] == this.user1.id){
+        // if(this.chat.idUsers[0] == this.user1.id && this.chat){
           user2Id = this.chat.idUsers[1];
         } else {
           user2Id = this.chat.idUsers[0];
@@ -136,9 +150,10 @@ export class ChatComponent {
           if(user2)this.user2 = user2
           this.user2Status = "true";
         })
+
+        this.chatStatus="avaible";
       } else{
         console.log("1 o 2 keys no son verdaderas");
-        
       }
     },2000)
   }
@@ -152,8 +167,23 @@ export class ChatComponent {
     )
   }
 
+  joinOrCreateChat(){
+    this.firebaseSv.joinOrCreateChat()
+  }
+
+  leaveChat(){
+    // this.chat =
+    this.firebaseSv.leaveChat();
+
+    // this.chat$ = null;
+    // this.user2 = null;
+    // this.user2Status = "false"
+  }
+
   chat:Chat = this.mock.chat;
   user1:User = this.mock.user1;
-  user2:User = this.mock.user2;
+  user2:User | null = this.mock.user2;
+  
   user2Status:string = "false";
+  chatStatus:string = "no";
 }

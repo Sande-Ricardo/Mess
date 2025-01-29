@@ -111,6 +111,7 @@ export class LoginService {
 
   // Logout del usuario actual
   logoutUser() {
+    localStorage.removeItem('email')
     return this.auth.signOut();
   }
 

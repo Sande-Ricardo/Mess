@@ -10,8 +10,9 @@ export const routes: Routes = [
         redirectTo:"login"
     },
     {
-        path: '', component: CommonComponent
-        // , canActivate: [AuthGuardService]
+        path: '',
+        component: CommonComponent
+        // canActivate: [AuthGuardService]
     },
     {
         path:'login',

@@ -28,8 +28,8 @@
               },
               {
                 "glob": "favicon.ico",
-                "input": "src",
-                "output": "/"
+                "input": "public",
+                "output": ""
               }
             ],
             "styles": [

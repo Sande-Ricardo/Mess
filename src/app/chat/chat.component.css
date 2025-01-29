@@ -70,9 +70,9 @@
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    background: var(--detail);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background: var(--shadow);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--detail);
     box-shadow: 0 8px 32px var(--shadow);
 }
@@ -110,7 +110,7 @@
     height: 85vh;
 
     background: var(--prm-back);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid var(--detail);
     box-shadow: 0 8px 32px var(--shadow);

@@ -1,39 +1,21 @@
 <div class="container2">
     <!-- <p>chat works!</p> -->
-    <img src="assets/img/Back2.png" alt="" class="background">
+    <img src="assets/img/Back4.jpg" alt="" class="background">
+    
     <!-- <div class="background"></div> -->
     <!-- <div class="menu">
         <p *ngIf="!( chat$ | async)">Join</p>
         <p *ngIf=" ( chat$ | async)">Leave</p>
         <p (click)="logout()">Logout</p>
     </div> -->
-    <div class="menu-container">
-        <button class="menu-toggle" (click)="toggleMenu()">
-            <svg *ngIf="!menuOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="icon">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5M3.75 15h16.5" />
-            </svg>
-            <svg *ngIf="menuOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="icon">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-    
-        <div class="sidebar" [class.open]="menuOpen">
-            <ul>
-                <li><p *ngIf="!( chat$ | async)">Join</p></li>
-                <li><p *ngIf=" ( chat$ | async)">Leave</p></li>
-                <li><p (click)="logout()">Logout</p></li>
-                <li><p >Contact</p></li>
-            </ul>
-        </div>
-    </div>
+    <!-- <div class="chat" *ngIf="chatStatus == 'avaible'"> -->
     <div class="chat">
+    
         <div class="header">
             <div class="imgUser">
                 <!-- <img [src]="user2.userImg" alt="Avatar" *ngIf="user2 != mock.user2"/> -->
             </div>
-            <p class="username">{{ user2.username }}</p>
+            <p class="username">{{ user2?.username }}</p>
             <span class="status {{user2Status}}"></span>
             <!-- <div class="options"></div> -->
         </div>
@@ -80,4 +62,28 @@
             <!-- <div class="send" (click)="ex()">></div> -->
         </div>
     </div>
+
+    <div class="menu-container">
+        <!-- <button class="menu-toggle" (click)="toggleMenu()" *ngIf="chatStatus == 'avaible'"> -->
+        <button class="menu-toggle" (click)="toggleMenu()">
+            <svg *ngIf="!menuOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5M3.75 15h16.5" />
+            </svg>
+            <svg *ngIf="menuOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    
+        <div class="sidebar" [class.open]="menuOpen">
+            <ul>
+                <li (click)="joinOrCreateChat()"><p *ngIf="!( chat$ | async)">Join</p></li>
+                <li (click)="leaveChat()"><p *ngIf=" ( chat$ | async)">Leave</p></li>
+                <li><p (click)="logout()">Logout</p></li>
+                <li><p >Contact</p></li>
+            </ul>
+        </div>
+    </div>
+
 </div>
