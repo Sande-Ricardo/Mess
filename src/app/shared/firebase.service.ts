@@ -28,16 +28,23 @@ export class FirebaseService {
     this.user1$ = this.getUserByEmail(
       localStorage.getItem('email') as string
     ).pipe(filter((user): user is User => user !== undefined));
-    this.user1$.subscribe((user) => {
-      if (user.idChat) {
-        this.getChatById(user.idChat);
-      }
-    });
+    setTimeout(
+      () => 
+        {this.user1$.subscribe((user) => {
+          console.log(user);
+          
+          if (user.idChat) {
+            this.userId = user.id as string;
+            this.getChatById(user.idChat);
+          }
+        });},1000
+    )
   }
 
   // ------------------------------  Observables --------------------------------
   chat$!: Observable<Chat>;
   user1$!: Observable<User>;
+  userId!:string;
   user2$!: Observable<User>;
 
   returnChat() {
@@ -106,6 +113,12 @@ export class FirebaseService {
   updateUser(user: User) {
     console.log('updateUser()');
     return this.db.object(`users/${user.id}`).update(user);
+  }
+  updateLangs(langs:string[]){
+    console.log(this.userId);
+    if(this.userId){
+      this.db.object(`users/${this.userId}`).update({lang:langs})
+    }
   }
 
   // DELETE
@@ -188,13 +201,15 @@ export class FirebaseService {
     this.user1$.subscribe(
       (user) => {currentUser = user}
     )
-    this.chat$.subscribe(
-      (chat) => {
-        currentChat = chat;
-        console.log("chat ... : ", chat);
-      }
-    )
 
+    if(this.chat$){
+      this.chat$.subscribe(
+        (chat) => {
+          currentChat = chat;
+          console.log("chat ... : ", chat);
+        }
+      )
+    }
     setTimeout(
       () => {
         if(currentUser){

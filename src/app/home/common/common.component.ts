@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { LangSelectComponent } from '../../components/lang-select/lang-select.component';
 
 @Component({
   selector: 'app-common',
-  imports: [FormsModule],
+  imports: [LangSelectComponent],
   templateUrl: './common.component.html',
   styleUrl: './common.component.css'
 })
 export class CommonComponent {
-  menuOpen: boolean = false;
+  langSelectOpen: boolean = false;
 
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
+  toggleSelectMenu() {
+    this.langSelectOpen = !this.langSelectOpen;
   }
 }

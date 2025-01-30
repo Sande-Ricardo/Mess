@@ -186,4 +186,11 @@ export class ChatComponent {
   
   user2Status:string = "false";
   chatStatus:string = "no";
+
+  // langSelection
+  langSelectOpen: boolean = false;
+
+  toggleSelectMenu() {
+    this.langSelectOpen = !this.langSelectOpen;
+  }
 }

@@ -104,6 +104,24 @@
     color: #007bff;
 }
 
+.langSubcontainer {
+    position: relative;
+    width: 15rem;
+    left: 0;
+    top: 0;
+    /* box-sizing: border-box; */
+
+    transform: translateX(-120%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.langSubcontainer.open {
+    transform: translateX(0);
+}
+
 .chat {
     position: relative;
     width: 30rem;

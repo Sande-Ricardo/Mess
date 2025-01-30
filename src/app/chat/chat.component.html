@@ -81,7 +81,13 @@
                 <li (click)="joinOrCreateChat()"><p *ngIf="!( chat$ | async)">Join</p></li>
                 <li (click)="leaveChat()"><p *ngIf=" ( chat$ | async)">Leave</p></li>
                 <li><p (click)="logout()">Logout</p></li>
-                <li><p >Contact</p></li>
+                <li class="bottomPos"><p>Contact</p></li>
+                <li><p (click)="toggleSelectMenu()">Languages</p></li>
+                <li>
+                    <div class="langSubcontainer" [class.open]="langSelectOpen">
+                        <app-lang-select></app-lang-select>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

@@ -1,0 +1,11 @@
+<div class="language-selection-container">
+    <h2>Select your language</h2>
+    <ul class="language-list">
+        <li *ngFor="let language of languages" (click)="selectLanguage(language.substring(0,2).toUpperCase())"
+            [class.selected]="selectedLanguages.includes(language.substring(0,2).toUpperCase())">
+            {{ language }}
+        </li>
+    </ul>
+    <p class="apply" (click)="defineLangs()">Apply</p>
+    <!-- <p (click)="verLangs()">Ver langs</p> -->
+</div>
