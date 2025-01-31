@@ -21,8 +21,18 @@
 }
 
 /* :host {
-  display: block;
+display: block;
 } */
+
+.iconMess{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 4rem;
+    height: 4rem;
+    /* background: cadetblue; */
+    filter: drop-shadow(4px 4px 4px var(--shadow));
+}
 
 .menu-container {
     position: relative;
@@ -83,7 +93,6 @@
 
 .sidebar ul {
     position: absolute;
-    top: 5rem;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -120,6 +129,13 @@
 
 .langSubcontainer.open {
     transform: translateX(0);
+}
+
+.topPos{
+    top: 5rem;
+}
+.bottomPos{
+    bottom: 2rem;
 }
 
 .chat {
@@ -180,13 +196,14 @@
     width: .8rem;
     height: .8rem;
     border-radius: 50%;
+    border: #007bff solid 1px;
 }
 
-.true {
+.status.true {
     background-color: var(--prm);
 }
 
-.false {
+.status.false {
     background-color: rgb(241, 51, 51);
 }
 

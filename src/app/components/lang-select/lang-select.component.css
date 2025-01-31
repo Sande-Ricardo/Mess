@@ -48,6 +48,7 @@
 }
 
 .apply{
+    cursor: pointer;
     position: relative;
     left: -6rem;
     top: 1.5rem;

@@ -1,22 +1,25 @@
 <div class="container2">
     <!-- <p>chat works!</p> -->
-    <img src="assets/img/Back4.jpg" alt="" class="background">
-    
+    <img src="assets/img/Back3.webp" alt="" class="background">
+    <img src="assets/img/Mess.svg" alt="" class="iconMess">
     <!-- <div class="background"></div> -->
     <!-- <div class="menu">
         <p *ngIf="!( chat$ | async)">Join</p>
         <p *ngIf=" ( chat$ | async)">Leave</p>
         <p (click)="logout()">Logout</p>
     </div> -->
-    <!-- <div class="chat" *ngIf="chatStatus == 'avaible'"> -->
-    <div class="chat">
+    
+    <div class="chat" *ngIf="chatStatus == 'avaible'">
+    <!-- <div class="chat"> -->
     
         <div class="header">
             <div class="imgUser">
                 <!-- <img [src]="user2.userImg" alt="Avatar" *ngIf="user2 != mock.user2"/> -->
             </div>
             <p class="username">{{ user2?.username }}</p>
-            <span class="status {{user2Status}}"></span>
+            <!-- <span class="status {{user2Status}}"></span> -->
+            <!-- <span class="status " [ngClass]="{'true':(chat$ | async)?.idUsers?.length == 2 , 'false':(chat$ | async)?.idUsers?.length == 1}"></span> -->
+            <span class="status" [class.true]="(chat$ | async)?.idUsers?.length == 2" [class.false]="(chat$ | async)?.idUsers?.length != 2"></span>
             <!-- <div class="options"></div> -->
         </div>
 
@@ -77,17 +80,20 @@
         </button>
     
         <div class="sidebar" [class.open]="menuOpen">
-            <ul>
+            <ul class="topPos">
                 <li (click)="joinOrCreateChat()"><p *ngIf="!( chat$ | async)">Join</p></li>
                 <li (click)="leaveChat()"><p *ngIf=" ( chat$ | async)">Leave</p></li>
                 <li><p (click)="logout()">Logout</p></li>
-                <li class="bottomPos"><p>Contact</p></li>
                 <li><p (click)="toggleSelectMenu()">Languages</p></li>
                 <li>
                     <div class="langSubcontainer" [class.open]="langSelectOpen">
                         <app-lang-select></app-lang-select>
                     </div>
                 </li>
+            </ul>
+            <ul class="bottomPos">
+                <li><p>Contact</p></li>
+                <li><p>Report a problem</p></li>
             </ul>
         </div>
     </div>

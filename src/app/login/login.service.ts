@@ -66,6 +66,7 @@ export class LoginService {
       .then((authData) => {
         // 2. Guardar los datos del usuario en la base de datos (opcional)
         user.id = authData.user?.uid as string; // Asignar el ID generado por Firebase
+        localStorage.setItem('email', email);
         // return this.db.object(`users/${user.id}`).set(user);
         return this.firebaseSv.registerUser(user);
       });

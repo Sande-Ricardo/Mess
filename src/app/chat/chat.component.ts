@@ -31,16 +31,14 @@ export class ChatComponent {
     // if(!this.firebaseSv.user1$){
     //   this.firebaseSv.getUserByEmail(localStorage.getItem('email') as string);
     // };
+    this.firebaseSv.loadAll()
     setTimeout(() => {
       this.loadAll();
     },2000)
   }
 
-  menuOpen: boolean = false;
 
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
-  }
+  
 
 // ----------------------------------  Mock  -----------------------------------
   mock = {
@@ -106,8 +104,29 @@ export class ChatComponent {
       this.firebaseSv.chat$.subscribe(chat=>{
         this.chat = chat;
         // console.log("chat: ",chat);
+        if(chat){
+          this.chatStatus = 'avaible'
+          if(chat.idUsers.length == 2){
+            chat.idUsers.forEach(
+              (idUser) => {if(idUser != this.user1.id){
+                console.log("user1 : ",this.user1);
+                this.firebaseSv.getUserById(idUser).subscribe(
+                  user2 => {this.user2 = user2}
+                )
+              }}
+            )
+          }
+        } else {
+          this.menuOpen = true;
+          this.chatStatus = 'no'
+        }
       });
     } else {
+      try {
+        this.firebaseSv.loadAll
+      } catch (error) {
+        console.log(error);
+      }
       console.log("chat$ is null");
       
     }
@@ -123,6 +142,8 @@ export class ChatComponent {
   }
 
   loadAll(){
+    console.log("loadAll()");
+    
     let key1:boolean = false;
     let key2:boolean = false;
     let user2Id:string;
@@ -148,7 +169,7 @@ export class ChatComponent {
         }
         this.firebaseSv.getUserById(user2Id).subscribe(user2=>{
           if(user2)this.user2 = user2
-          this.user2Status = "true";
+          // this.user2Status = "true";
         })
 
         this.chatStatus="avaible";
@@ -169,10 +190,18 @@ export class ChatComponent {
 
   joinOrCreateChat(){
     this.firebaseSv.joinOrCreateChat()
+    setTimeout(
+      () => {
+        this.loadChat();
+        this.menuOpen = false;
+        this.langSelectOpen = false;
+      },5500
+    )
   }
 
   leaveChat(){
     // this.chat =
+    this.user2 = this.mock.user2
     this.firebaseSv.leaveChat();
 
     // this.chat$ = null;
@@ -180,17 +209,30 @@ export class ChatComponent {
     // this.user2Status = "false"
   }
 
+  def:number = "sd".length;
+
   chat:Chat = this.mock.chat;
   user1:User = this.mock.user1;
   user2:User | null = this.mock.user2;
   
-  user2Status:string = "false";
-  chatStatus:string = "no";
 
-  // langSelection
-  langSelectOpen: boolean = false;
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+    if(this.langSelectOpen){this.langSelectOpen = false}
+  }
 
   toggleSelectMenu() {
     this.langSelectOpen = !this.langSelectOpen;
   }
+
+
+// -------------------------------  Optionals  ---------------------------------
+  
+  menuOpen: boolean = false;
+// langSelection
+  langSelectOpen: boolean = false;
+  user2Status:string = "false";
+  chatStatus:string = "no";
+
+
 }
