@@ -81,10 +81,10 @@
     
         <div class="sidebar" [class.open]="menuOpen">
             <ul class="topPos">
-                <li (click)="joinOrCreateChat()"><p *ngIf="!( chat$ | async)">Join</p></li>
-                <li (click)="leaveChat()"><p *ngIf=" ( chat$ | async)">Leave</p></li>
-                <li><p (click)="logout()">Logout</p></li>
-                <li><p (click)="toggleSelectMenu()">Languages</p></li>
+                <li (click)="joinOrCreateChat()"><p *ngIf="!( chat$ | async)" class="normalText">Join</p></li>
+                <li (click)="leaveChat()"><p *ngIf=" ( chat$ | async)" class="normalText">Leave</p></li>
+                <li><p (click)="logout()" class="normalText">Logout</p></li>
+                <li><p (click)="toggleSelectMenu()" class="normalText">Languages</p></li>
                 <li>
                     <div class="langSubcontainer" [class.open]="langSelectOpen">
                         <app-lang-select></app-lang-select>
@@ -92,8 +92,9 @@
                 </li>
             </ul>
             <ul class="bottomPos">
-                <li><p>Contact</p></li>
-                <li><p>Report a problem</p></li>
+                <!-- <li><p>Contact</p></li> -->
+                <li><a href="https://touchiness.netlify.app/" class="normalText">Contact</a></li>
+                <li><p class="normalText">Report a problem</p></li>
             </ul>
         </div>
     </div>
